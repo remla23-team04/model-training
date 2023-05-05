@@ -1,6 +1,7 @@
 # Importing libraries
 import numpy as np
 import pandas as pd
+import os
 
 import re                           # re = Secret Labs' Regular Expression Engine
 import nltk                         # NLTK = Natural Language Toolkit
@@ -19,6 +20,7 @@ from sklearn.metrics import confusion_matrix, accuracy_score
 # Variables
 path_to_input_data = '../data/input/'
 path_to_output = '../data/output/'
+path_to_model = '../data/trained_models/'
 dataset_name = 'a1_RestaurantReviews_HistoricDump.tsv'
 pkl_file_name = 'c1_BoW_Sentiment_Model.pkl'
 classifier_name = 'c2_Classifier_Sentiment_Model'
@@ -76,7 +78,7 @@ def predict(classifier, X_test):
 
 
 if __name__ == '__main__':
-    print("hello")
+    version_number = len(os.listdir(path_to_model))
 
     corpus = pre_processing()
 
@@ -92,7 +94,7 @@ if __name__ == '__main__':
     X_train, X_test, y_train, y_test, classifier = train()
 
     # Exporting NB Classifier to later use in prediction
-    joblib.dump(classifier, path_to_output + classifier_name)
+    joblib.dump(classifier, path_to_model + classifier_name + "_" + str(version_number))
 
     predict(classifier, X_test)
 
