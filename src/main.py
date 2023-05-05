@@ -20,23 +20,26 @@ from sklearn.metrics import confusion_matrix, accuracy_score
 path_to_input_data = '../data/input/'
 path_to_output = '../data/output/'
 dataset_name = 'a1_RestaurantReviews_HistoricDump.tsv'
+pkl_file_name = 'c1_BoW_Sentiment_Model.pkl'
+classifier_name = 'c2_Classifier_Sentiment_Model'
+
 path_to_dataset = path_to_input_data + dataset_name
 
 # Importing dataset
 dataset = pd.read_csv(path_to_dataset, delimiter = '\t', quoting = 3)
 print(dataset.shape)
 
-if __name__ == '__main__':
-    print("hello")
 
-    # Data Preprocessing
-    # nltk.download('stopwords')
+def pre_processing():
+    """
+    Data pre-processing part.
+    :return: whatever is needed for other methods
+    """
     ps = PorterStemmer()
     all_stopwords = stopwords.words('english')
     all_stopwords.remove('not')
 
     corpus = []
-
     for i in range(0, 900):
         review = re.sub('[^a-zA-Z]', ' ', dataset['Review'][i])
         review = review.lower()
@@ -45,15 +48,14 @@ if __name__ == '__main__':
         review = ' '.join(review)
         corpus.append(review)
 
-    # Data transformation
-    cv = CountVectorizer(max_features=1420)
-    X = cv.fit_transform(corpus).toarray()
-    y = dataset.iloc[:, -1].values
+    return corpus
 
-    # Saving BoW dictionary to later use in prediction
-    bow_path = path_to_output + 'c1_BoW_Sentiment_Model.pkl'
-    pickle.dump(cv, open(bow_path, "wb"))
 
+def train():
+    """
+    Everything training related (to get to a model).
+    :return:
+    """
     # Dividing dataset into training and test set
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=0)
 
@@ -61,13 +63,36 @@ if __name__ == '__main__':
     classifier = GaussianNB()
     classifier.fit(X_train, y_train)
 
-    # Exporting NB Classifier to later use in prediction
-    joblib.dump(classifier, path_to_output + 'c2_Classifier_Sentiment_Model')
+    return X_train, X_test, y_train, y_test, classifier
 
+
+def predict(classifier, X_test):
     y_pred = classifier.predict(X_test)
 
     # Model performance
     cm = confusion_matrix(y_test, y_pred)
     print(cm)
     print(accuracy_score(y_test, y_pred))
+
+
+if __name__ == '__main__':
+    print("hello")
+
+    corpus = pre_processing()
+
+    # Data transformation
+    cv = CountVectorizer(max_features=1420)
+    X = cv.fit_transform(corpus).toarray()
+    y = dataset.iloc[:, -1].values
+
+    # Saving BoW dictionary to later use in prediction
+    bow_path = path_to_output + pkl_file_name
+    pickle.dump(cv, open(bow_path, "wb"))
+
+    X_train, X_test, y_train, y_test, classifier = train()
+
+    # Exporting NB Classifier to later use in prediction
+    joblib.dump(classifier, path_to_output + classifier_name)
+
+    predict(classifier, X_test)
 
