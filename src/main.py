@@ -22,7 +22,7 @@ path_to_input_data = '../data/input/'
 path_to_output = '../data/output/'
 path_to_model = '../data/trained_models/'
 dataset_name = 'a1_RestaurantReviews_HistoricDump.tsv'
-pkl_file_name = 'c1_BoW_Sentiment_Model.pkl'
+pkl_file_name = 'c1_BoW_Sentiment_Model'
 classifier_name = 'c2_Classifier_Sentiment_Model'
 
 path_to_dataset = path_to_input_data + dataset_name
@@ -88,7 +88,7 @@ if __name__ == '__main__':
     y = dataset.iloc[:, -1].values
 
     # Saving BoW dictionary to later use in prediction
-    bow_path = path_to_output + pkl_file_name
+    bow_path = path_to_output + pkl_file_name + "_" + str(version_number) + '.pkl'
     pickle.dump(cv, open(bow_path, "wb"))
 
     X_train, X_test, y_train, y_test, classifier = train()
