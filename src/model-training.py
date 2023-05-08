@@ -6,6 +6,7 @@ import os
 import re                           # re = Secret Labs' Regular Expression Engine
 import nltk                         # NLTK = Natural Language Toolkit
 
+nltk.download('stopwords')
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 
@@ -18,9 +19,9 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import confusion_matrix, accuracy_score
 
 # Variables
-path_to_input_data = '../data/input/'
-path_to_output = '../data/output/'
-path_to_model = '../data/trained_models/'
+path_to_input_data = './data/input/'
+path_to_output = './data/output/'
+path_to_model = './data/trained_models/'
 dataset_name = 'a1_RestaurantReviews_HistoricDump.tsv'
 pkl_file_name = 'c1_BoW_Sentiment_Model'
 classifier_name = 'c2_Classifier_Sentiment_Model'
