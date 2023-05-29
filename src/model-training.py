@@ -69,7 +69,13 @@ def train():
     return X_train, X_test, y_train, y_test, classifier
 
 
-def predict(classifier, X_test):
+def evaluation(classifier, X_test):
+    """
+    Evaluation
+    :param classifier:
+    :param X_test:
+    :return:
+    """
     y_pred = classifier.predict(X_test)
 
     # Model performance
@@ -97,5 +103,5 @@ if __name__ == '__main__':
     # Exporting NB Classifier to later use in prediction
     joblib.dump(classifier, path_to_model + classifier_name + "_" + str(version_number))
 
-    predict(classifier, X_test)
+    evaluation(classifier, X_test)
 
