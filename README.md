@@ -1,6 +1,9 @@
 # model-training
 Python 3.7
 
+### Outputs
+See `outputs` folder for different metrics given by PyLint and DSLinter for the current version of the code!
+
 ### Clone repo
 ```
 $ git clone https://github.com/remla23-team04/model-training.git
@@ -27,7 +30,7 @@ mllint run
 pip install pylint==2.12.2
 pylint src/train.py
 ```
-Latest score: Your code has been rated at -5.09/10 (previous run: -5.26/10, +0.18)
+Latest score: Your code has been rated at 3.45/10
 
 ### DS Linter
 ```
@@ -35,7 +38,7 @@ pip install dslinter
 pylint --load-plugins=dslinter src/train.py
 pylint src/train.py
 ```
-Latest score: Your code has been rated at -5.61/10 (previous run: -5.09/10, -0.53)
+Latest score: Your code has been rated at 3.10/10 (previous run: 3.45/10, -0.34)
 
 ### Data pipeline (DVC)
 ```
@@ -74,5 +77,4 @@ python process_data.py is the command to execute for this stage.
 
 See the DAG: `dvc dag`
 
-### Outputs
 
