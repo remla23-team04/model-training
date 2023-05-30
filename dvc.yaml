@@ -1,0 +1,5 @@
+stages:
+  process_data:
+    cmd: python src/pre_process.py
+    deps:
+    - ./data/input/a1_RestaurantReviews_HistoricDump.tsv

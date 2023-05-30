@@ -1,0 +1,8 @@
+schema: '2.0'
+stages:
+  process_data:
+    cmd: python src/pre_process.py
+    deps:
+    - path: ./data/input/a1_RestaurantReviews_HistoricDump.tsv
+      md5: 102f1f4193e0bdebdd6cce7f13e0a839
+      size: 54686
