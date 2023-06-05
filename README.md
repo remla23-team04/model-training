@@ -24,6 +24,8 @@ Tests for non-determinism robustness are included in the `test` folder.
 
 In order to run the tests first download all dependencies, then run `pytest` in the project root. These tests are also automatically triggered through the CI pipeline. 
 
+Test coverage can be run using `coverage run -m pytest`. A report can be viewed using `coverage report`. 
+
 ### mllint
 ```
 pip install mllint
