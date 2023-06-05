@@ -21,7 +21,7 @@ def load_data(path_to_input_data='./data/input/', dataset_name='a1_RestaurantRev
     return dataset
 
 
-def pre_process():
+def pre_process(dataset=load_data()):
     """
     Data pre-processing part.
     :return: whatever is needed for other methods
@@ -31,7 +31,6 @@ def pre_process():
     all_stopwords.remove('not')
 
     corpus = []
-    dataset = load_data()
     for i in range(0, 900):
         review = re.sub('[^a-zA-Z]', ' ', dataset['Review'][i])
         review = review.lower()

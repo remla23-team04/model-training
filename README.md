@@ -19,6 +19,11 @@ Linux/MacOS: `source myenv/bin/activate`
 pip install -r requirements.txt
 ```
 
+### Tests
+Tests for non-determinism robustness are included in the `test` folder.
+
+In order to run the tests first download all dependencies, then run `pytest` in the project root. These tests are also automatically triggered through the CI pipeline. 
+
 ### mllint
 ```
 pip install mllint
