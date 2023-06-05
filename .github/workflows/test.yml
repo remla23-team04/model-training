@@ -1,0 +1,15 @@
+# test.yml
+name: Test
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: set up Python
+        uses: actions/setup-python@v2
+        with:
+          python_version:
+      - name: Parse version info from tag
+        run: |
+          pytest
