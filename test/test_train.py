@@ -16,7 +16,7 @@ def test_nondeterminism_robustness(df):
     print("PRINT TEST")
     accs = []
     for seed in [1, 2, 3, 4, 5]:
-        _, X_test, _, y_test, classifier = train(X, y, seed, seed)
+        X_test, y_test, classifier = train(X, y, seed, seed)
         acc = evaluation(classifier, X_test, y_test)
         accs.append(acc)
     assert np.mean(accs) > 0.65
