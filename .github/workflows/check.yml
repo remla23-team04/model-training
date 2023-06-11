@@ -19,7 +19,7 @@ jobs:
           pylint --fail-under=4.0 ./src
       - name: Run Dslinter
         run: |
-          pylint --load-plugins=dslinter ./src
+          pylint --fail-under=4.0 --load-plugins=dslinter ./src
       - name: Upload Dslinter report
         uses: actions/upload-artifact@v3
         with:
