@@ -17,3 +17,8 @@ fsspec==2022.7.1
 
 pytest==7.3.1
 coverage==7.2.2
+
+mllint
+dslinter
+pylint
+dvc
