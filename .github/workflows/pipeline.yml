@@ -23,8 +23,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run Pylint
-          run: |
-            pylint --fail-under=5.8 ./src
+        run: |
+          pylint --fail-under=5.8 ./src
       - name: Run Dslinter
         run: |
           pylint --fail-under=5.8 --load-plugins=dslinter --output-format=text:report.txt ./src
