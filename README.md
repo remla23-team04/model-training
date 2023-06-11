@@ -1,5 +1,7 @@
+[![Coverage Status](https://coveralls.io/repos/github/remla23-team04/model-training/badge.svg)](https://coveralls.io/github/remla23-team04/model-training)
+
 # model-training
-Python 3.7
+Python 3.8
 
 ### Outputs
 See `outputs` folder for different metrics given by PyLint and DSLinter for the current version of the code!
