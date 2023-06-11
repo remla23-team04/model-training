@@ -112,7 +112,7 @@ jobs:
 
   #### DEPLOY
   deploy:
-    needs: test
+    needs: [check, test]
     runs-on: ubuntu-latest
     if: startsWith(github.event_name, 'release') && startsWith(github.ref, 'refs/tags/v')
     steps:
