@@ -1,0 +1,102 @@
+# pipeline.yml
+name: Pipeline
+on: [push]
+jobs:
+  #### BUILD
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.8"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt 
+
+  #### CHECK
+  check:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Pylint
+          run: |
+            pylint --fail-under=5.8 ./src
+      - name: Run Dslinter
+        run: |
+          pylint --fail-under=5.8 --load-plugins=dslinter --output-format=text:report.txt ./src
+      - name: Run Mllint
+        run: |
+          mllint -o report.md
+
+  #### TEST
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run tests and coverage
+        run: |
+          coverage run -m pytest
+
+  #### REPORT
+  report:
+    needs: [check, test]
+    runs-on: ubuntu-latest
+    steps:
+      #### COVERAGE REPORT FOR TESTS
+      - name: Generate coverage report
+        run: |
+          coverage report
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-report
+          path: htmlcov
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
+      #### COVERAGE REPORT FOR LINTERS
+      - name: Upload dslinter report
+        uses: actions/upload-artifact@v2
+        with:
+          name: dslinter-report
+          path: report.txt
+      - name: Upload Mllint report
+        uses: actions/upload-artifact@v2
+        with:
+          name: mllint-report
+          path: report.md
+
+  #### DEPLOY
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: startsWith(github.event_name, 'release') && startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - name: Parse version info from tag
+        run: |
+          # GITHUB_REF is like refs/tags/v2.3.5, so strip the first 11 chars
+          VERSION=${GITHUB_REF:11}
+          MAJOR=`echo "$VERSION" | cut -d . -f 1`
+          MINOR=`echo "$VERSION" | cut -d . -f 2`
+          PATCH=`echo "$VERSION" | cut -d . -f 3`
+          echo "version=$VERSION" >> $GITHUB_ENV
+          echo "version_major=$MAJOR" >> $GITHUB_ENV
+          echo "version_minor=$MINOR" >> $GITHUB_ENV
+          echo "version_patch=$PATCH" >> $GITHUB_ENV
+      - name: Registry Login (ghcr.io)
+        run: echo "${{ secrets.ORG_GH_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+      - name: Build and Push Docker Image
+        run: |
+          IMG=ghcr.io/${{ github.repository }}
+          # Make lowercase
+          IMG=${IMG,,}
+          docker build \
+            --tag $IMG:${{ env.version }} \
+            --tag $IMG:${{ env.version_major }}.${{ env.version_minor }}.latest \
+            --tag $IMG:${{ env.version_major }}.latest \
+            --tag $IMG:latest \
+            .
+          docker push --all-tags $IMG
