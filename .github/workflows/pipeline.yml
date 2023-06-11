@@ -21,8 +21,8 @@ jobs:
       - name: Cache build artifacts
         uses: actions/cache@v2
         with:
-          path: path/to/build/directory
-          key: ${{ runner.os }}-build-${{ hashFiles('path/to/build/directory') }}
+          path: build
+          key: ${{ runner.os }}-build-${{ hashFiles('build') }}
           restore-keys: |
             ${{ runner.os }}-build-
 
@@ -59,6 +59,18 @@ jobs:
         run: |
           mllint -o report.md
 
+      ## Report
+      - name: Upload dslinter report
+        uses: actions/upload-artifact@v2
+        with:
+          name: dslinter-report
+          path: report.txt
+      - name: Upload Mllint report
+        uses: actions/upload-artifact@v2
+        with:
+          name: mllint-report
+          path: report.md
+
   #### TEST
   test:
     needs: build
@@ -86,30 +98,7 @@ jobs:
         run: |
           coverage run -m pytest
 
-  #### REPORT
-  report:
-    needs: [check, test]
-    runs-on: ubuntu-latest
-    steps:
-      # Use cached build artifacts
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      - name: Restore build artifacts
-        uses: actions/cache@v2
-        with:
-          path: build
-          key: ${{ runner.os }}-build-${{ hashFiles('build') }}
-      - name: Install Python dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      # Actual stuff from this job
-      #### COVERAGE REPORT FOR TESTS
+      ## Report
       - name: Generate coverage report
         run: |
           coverage report
@@ -120,17 +109,6 @@ jobs:
           path: htmlcov
       - name: Coveralls
         uses: coverallsapp/github-action@v2
-      #### COVERAGE REPORT FOR LINTERS
-      - name: Upload dslinter report
-        uses: actions/upload-artifact@v2
-        with:
-          name: dslinter-report
-          path: report.txt
-      - name: Upload Mllint report
-        uses: actions/upload-artifact@v2
-        with:
-          name: mllint-report
-          path: report.md
 
   #### DEPLOY
   deploy:
