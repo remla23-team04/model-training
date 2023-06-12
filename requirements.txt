@@ -17,6 +17,7 @@ fsspec
 
 pytest
 coverage
+memory-profiler
 
 mllint
 dslinter
