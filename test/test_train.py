@@ -7,6 +7,10 @@ from time import time
 import random
 import memory_profiler
 
+import nltk
+nltk.download('wordnet')
+from nltk.corpus import wordnet
+
 # To run without suppressing stdout:
 # `pytest -rP`
 
@@ -97,10 +101,6 @@ def test_mutamorphic_synonym(df):
     """
     Mutamorphic test that ensures that replacing a sentiment-associated word with a synonym does not change performance greatly
     """
-    import nltk
-    nltk.download('wordnet')
-    from nltk.corpus import wordnet
-    
     corpus, dataset = src.pre_process.pre_process(df)
     new_corpus = []
     for i in range(len(corpus)):
