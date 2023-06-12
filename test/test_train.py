@@ -4,9 +4,12 @@ import src.pre_process
 from src.train import train, data_transform
 from src.evaluate import evaluation
 from time import time
-from nltk.corpus import wordnet
 import random
 import memory_profiler
+
+import nltk
+nltk.download('wordnet')
+from nltk.corpus import wordnet
 
 # To run without suppressing stdout:
 # `pytest -rP`
