@@ -41,7 +41,7 @@ def data_transform(corpus, dataset, save_transform=False):
     if save_transform:
         bow_path = PATH_TO_OUTPUT + PKL_FILE_NAME + "_" + str(version_number) + '.pkl'
         pickle.dump(cv, open(bow_path, "wb"))
-    return X, y
+    return X, y, cv
 
 
 def main():
@@ -49,7 +49,7 @@ def main():
 
     corpus, dataset = pre_process()
 
-    X, y = data_transform(corpus, dataset, save_transform=True)
+    X, y, _ = data_transform(corpus, dataset, save_transform=True)
 
     X_test, y_test, classifier = train(X, y)
 

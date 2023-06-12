@@ -13,6 +13,4 @@ def evaluation(classifier, X_test, y_test):
     # Model performance
     cm = confusion_matrix(y_test, y_pred)
     acc = accuracy_score(y_test, y_pred)
-    print(cm)
-    print(acc)
     return acc
