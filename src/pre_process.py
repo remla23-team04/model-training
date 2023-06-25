@@ -21,6 +21,22 @@ def load_data(path_to_input_data='./data/input/', dataset_name='a1_RestaurantRev
     return dataset
 
 
+def process_a_review(review, all_stopwords, ps):
+    """
+    Processing a review (should be the same as the processing of the prediction endpoint from model-service).
+    :param review: the actual content - input
+    :param all_stopwords: what words not to consider
+    :param ps: used for stemming words
+    :return: the processed review
+    """
+    # Substitute anything that is not a-zA-Z with a space
+    review = re.sub('[^a-zA-Z]', ' ', review)
+    review = review.lower()
+    review = review.split()
+    review = [ps.stem(word) for word in review if not word in set(all_stopwords)]
+    return ' '.join(review)
+
+
 def pre_process(dataset=load_data()):
     """
     Data pre-processing part.
@@ -32,12 +48,7 @@ def pre_process(dataset=load_data()):
 
     corpus = []
     for i in range(0, dataset.shape[0]):
-        # Substitute anything that is not a-zA-Z with a space
-        review = re.sub('[^a-zA-Z]', ' ', dataset['Review'][i])
-        review = review.lower()
-        review = review.split()
-        review = [ps.stem(word) for word in review if not word in set(all_stopwords)]
-        review = ' '.join(review)
+        review = process_a_review(dataset['Review'][i], all_stopwords, ps)
         corpus.append(review)
 
     return corpus, dataset
