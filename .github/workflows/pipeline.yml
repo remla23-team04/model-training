@@ -8,6 +8,7 @@ on:
     types:
       - opened
       - synchronize
+      - reopened
 
 jobs:
   #### BUILD
@@ -131,7 +132,8 @@ jobs:
     steps:
       - uses: mshick/add-pr-comment@v2
         with:
-          message-path: test-results/test-results.md
+          message-path: |
+            ./test-results/test-results.md
 
   #### DEPLOY
   deploy:
