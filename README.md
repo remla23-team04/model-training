@@ -2,7 +2,7 @@
 
 # model-training
 
-Python 3.8
+Uses Python 3.8
 
 ### Outputs
 
