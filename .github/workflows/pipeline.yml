@@ -100,7 +100,7 @@ jobs:
 
       - name: Get md test report and append to README
         run: |
-          pytest --md-report --md-report-verbose=1 --md-report-output=test-results/test-results.md
+          pytest --md-report --md-report-verbose=1 --md-report-color never --md-report-output=test-results/test-results.md
           cat README.md test-results/test-results.md > README-new.md
           cp README-new.md README.md
           rm README-new.md
