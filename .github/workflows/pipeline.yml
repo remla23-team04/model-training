@@ -113,6 +113,9 @@ jobs:
             const fs = require('fs');
             const report = fs.readFileSync('test-results/test-results.md', 'utf8');
             const eventContext = github.context;
+            if (eventContext === undefined) {
+              return;
+            }
             const pullRequest = eventContext.payload.pull_request;
             const issueComment = eventContext.issue({ body: report });
             return github.issues.createComment(issueComment);
