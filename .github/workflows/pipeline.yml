@@ -107,9 +107,14 @@ jobs:
         run: |
           coverage run -m pytest
 
-      - name: Get md test report and append to README
+      - name: Get md test report
         run: |
-          pytest --md-report --md-report-verbose=1 --md-report-color never --md-report-output=test-results/test-results.md
+          pytest --md-report --md-report-verbose=1 --md-report-color never --md-report-output=./test-results/test-results.md
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: md-test-report
+          path: ./test-results/test-results.md
 
       ## Report
       - name: Generate coverage report
@@ -130,10 +135,12 @@ jobs:
     permissions:
       pull-requests: write
     steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: md-test-report
       - uses: mshick/add-pr-comment@v2
         with:
-          message-path: |
-            ./test-results/test-results.md
+          message-path: ./test-results/test-results.md
 
   #### DEPLOY
   deploy:
