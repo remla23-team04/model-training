@@ -1,55 +1,66 @@
 [![Coverage Status](https://coveralls.io/repos/github/remla23-team04/model-training/badge.svg)](https://coveralls.io/github/remla23-team04/model-training)
 
 # model-training
+
 Python 3.8
 
 ### Outputs
+
 See `outputs` folder for different metrics given by PyLint and DSLinter for the current version of the code!
 
 ### Clone repo
+
 ```
 $ git clone https://github.com/remla23-team04/model-training.git
 $ cd model-training
 ```
 
 ### Setup
+
 Create the environment: `python -m venv myenv`  
 Windows: `myenv\Scripts\activate.bat`  
-Linux/MacOS: `source myenv/bin/activate`  
+Linux/MacOS: `source myenv/bin/activate`
 
 ```
 pip install -r requirements.txt
 ```
 
 ### Tests
+
 Tests for non-determinism robustness are included in the `test` folder.
 
-In order to run the tests first download all dependencies, then run `pytest` in the project root. These tests are also automatically triggered through the CI pipeline. 
+In order to run the tests first download all dependencies, then run `pytest` in the project root. These tests are also automatically triggered through the CI pipeline.
 
-Test coverage can be run using `coverage run -m pytest`. A report can be viewed using `coverage report`. 
+Test coverage can be run using `coverage run -m pytest`. A report can be viewed using `coverage report`.
 
 ### mllint
+
 ```
 pip install mllint
 mllint run
 ```
 
 ### PyLint
+
 ```
 pip install pylint==2.12.2
 pylint src/train.py
 ```
+
 Latest score: Your code has been rated at 3.45/10
 
 ### DS Linter
+
 ```
 pip install dslinter
 pylint --load-plugins=dslinter src/train.py
 pylint src/train.py
 ```
+
 Latest score: Your code has been rated at 3.10/10 (previous run: 3.45/10, -0.34)
 
 ### Data pipeline (DVC)
+
 ```
 pip install dvc
 dvc init
@@ -58,25 +69,28 @@ dvc init
 <details>
   <summary>If you have any issues with DVC</summary>
 
-Incorrect pip version: 
+Incorrect pip version:
+
 ```
 python -m pip install --upgrade pip
 ```
 
 fsspec:
+
 ```
 pip uninstall fsspec
 pip install fsspec==2022.7.1
 ```
-  
+
 </details>
 
-P.s. 
+P.s.
 
-Run: 
+Run:
 `dvc run -n process_data -d ./data/input/a1_RestaurantReviews_HistoricDump.tsv python src/pre_process.py`
 
 Where:
+
 ```
 -n process_data specifies the name of the DVC stage as process_data.
 -d input.csv specifies the input file input.csv as a dependency for the stage.
@@ -85,5 +99,12 @@ python process_data.py is the command to execute for this stage.
 ```
 
 See the DAG: `dvc dag`
-
-
+| [1m     filepath     [0m | [1m           function           [0m | [1mpassed[0m | [1mSUBTOTAL[0m |
+| ------------------ | ------------------------------ | -----: | -------: |
+[48;2;32;32;32m|[0m[48;2;32;32;32m[92m test\test_train.py [0m[48;2;32;32;32m|[0m[48;2;32;32;32m[92m test_label_distribution        [0m[48;2;32;32;32m|[0m[48;2;32;32;32m[92m      1 [0m[48;2;32;32;32m|[0m[48;2;32;32;32m[92m        1 [0m[48;2;32;32;32m|[0m
+[40m|[0m[40m[92m test\test_train.py [0m[40m|[0m[40m[92m test_preprocessing             [0m[40m|[0m[40m[92m      1 [0m[40m|[0m[40m[92m        1 [0m[40m|[0m
+[48;2;32;32;32m|[0m[48;2;32;32;32m[92m test\test_train.py [0m[48;2;32;32;32m|[0m[48;2;32;32;32m[92m test_data_slice                [0m[48;2;32;32;32m|[0m[48;2;32;32;32m[92m      1 [0m[48;2;32;32;32m|[0m[48;2;32;32;32m[92m        1 [0m[48;2;32;32;32m|[0m
+[40m|[0m[40m[92m test\test_train.py [0m[40m|[0m[40m[92m test_nondeterminism_robustness [0m[40m|[0m[40m[92m      1 [0m[40m|[0m[40m[92m        1 [0m[40m|[0m
+[48;2;32;32;32m|[0m[48;2;32;32;32m[92m test\test_train.py [0m[48;2;32;32;32m|[0m[48;2;32;32;32m[92m test_inference_performance     [0m[48;2;32;32;32m|[0m[48;2;32;32;32m[92m      1 [0m[48;2;32;32;32m|[0m[48;2;32;32;32m[92m        1 [0m[48;2;32;32;32m|[0m
+[40m|[0m[40m[92m test\test_train.py [0m[40m|[0m[40m[92m test_mutamorphic_synonym       [0m[40m|[0m[40m[92m      1 [0m[40m|[0m[40m[92m        1 [0m[40m|[0m
+[48;2;0;0;0m|[0m[48;2;0;0;0m[92m TOTAL              [0m[48;2;0;0;0m|[0m[48;2;0;0;0m[92m                                [0m[48;2;0;0;0m|[0m[48;2;0;0;0m[92m      6 [0m[48;2;0;0;0m|[0m[48;2;0;0;0m[92m        6 [0m[48;2;0;0;0m|[0m

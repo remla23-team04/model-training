@@ -1,6 +1,6 @@
 # pipeline.yml
 name: Pipeline
-on: [push]
+on: [push, pull_request]
 jobs:
   #### BUILD
   build:
@@ -15,7 +15,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt 
+          pip install -r requirements.txt
 
       # Cache so we can use the artifacts in other jobs (faster boy)
       - name: Cache build artifacts
@@ -97,6 +97,25 @@ jobs:
       - name: Run tests and coverage
         run: |
           coverage run -m pytest
+
+      - name: Get md test report and append to README
+        run: |
+          pytest --md-report --md-report-verbose=1 --md-report-output=test-results/test-results.md
+          cat README.md test-results/test-results.md > README-new.md
+          cp README-new.md README.md
+          rm README-new.md
+
+      - name: Comment on pull request
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.ORG_GH_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('test-results/test-results.md', 'utf8');
+            const context = github.context;
+            const pullRequest = context.payload.pull_request;
+            const issueComment = context.issue({ body: report });
+            return github.issues.createComment(issueComment);
 
       ## Report
       - name: Generate coverage report
