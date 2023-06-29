@@ -1,9 +1,9 @@
-| [1m     filepath     [0m | [1m           function           [0m | [1mpassed[0m | [1mSUBTOTAL[0m |
+|      filepath      |            function            | passed | SUBTOTAL |
 | ------------------ | ------------------------------ | -----: | -------: |
-[48;2;32;32;32m|[0m[48;2;32;32;32m[92m test\test_train.py [0m[48;2;32;32;32m|[0m[48;2;32;32;32m[92m test_label_distribution        [0m[48;2;32;32;32m|[0m[48;2;32;32;32m[92m      1 [0m[48;2;32;32;32m|[0m[48;2;32;32;32m[92m        1 [0m[48;2;32;32;32m|[0m
-[40m|[0m[40m[92m test\test_train.py [0m[40m|[0m[40m[92m test_preprocessing             [0m[40m|[0m[40m[92m      1 [0m[40m|[0m[40m[92m        1 [0m[40m|[0m
-[48;2;32;32;32m|[0m[48;2;32;32;32m[92m test\test_train.py [0m[48;2;32;32;32m|[0m[48;2;32;32;32m[92m test_data_slice                [0m[48;2;32;32;32m|[0m[48;2;32;32;32m[92m      1 [0m[48;2;32;32;32m|[0m[48;2;32;32;32m[92m        1 [0m[48;2;32;32;32m|[0m
-[40m|[0m[40m[92m test\test_train.py [0m[40m|[0m[40m[92m test_nondeterminism_robustness [0m[40m|[0m[40m[92m      1 [0m[40m|[0m[40m[92m        1 [0m[40m|[0m
-[48;2;32;32;32m|[0m[48;2;32;32;32m[92m test\test_train.py [0m[48;2;32;32;32m|[0m[48;2;32;32;32m[92m test_inference_performance     [0m[48;2;32;32;32m|[0m[48;2;32;32;32m[92m      1 [0m[48;2;32;32;32m|[0m[48;2;32;32;32m[92m        1 [0m[48;2;32;32;32m|[0m
-[40m|[0m[40m[92m test\test_train.py [0m[40m|[0m[40m[92m test_mutamorphic_synonym       [0m[40m|[0m[40m[92m      1 [0m[40m|[0m[40m[92m        1 [0m[40m|[0m
-[48;2;0;0;0m|[0m[48;2;0;0;0m[92m TOTAL              [0m[48;2;0;0;0m|[0m[48;2;0;0;0m[92m                                [0m[48;2;0;0;0m|[0m[48;2;0;0;0m[92m      6 [0m[48;2;0;0;0m|[0m[48;2;0;0;0m[92m        6 [0m[48;2;0;0;0m|[0m
+| test\test_train.py | test_label_distribution        |      1 |        1 |
+| test\test_train.py | test_preprocessing             |      1 |        1 |
+| test\test_train.py | test_data_slice                |      1 |        1 |
+| test\test_train.py | test_nondeterminism_robustness |      1 |        1 |
+| test\test_train.py | test_inference_performance     |      1 |        1 |
+| test\test_train.py | test_mutamorphic_synonym       |      1 |        1 |
+| TOTAL              |                                |      6 |        6 |

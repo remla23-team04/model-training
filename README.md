@@ -27,6 +27,8 @@ pip install -r requirements.txt
 
 ### Tests
 
+Test results in both XML and MD formats are located in the `test-results` folder.
+
 Tests for non-determinism robustness are included in the `test` folder.
 
 In order to run the tests first download all dependencies, then run `pytest` in the project root. These tests are also automatically triggered through the CI pipeline.
@@ -99,12 +101,3 @@ python process_data.py is the command to execute for this stage.
 ```
 
 See the DAG: `dvc dag`
-| [1m     filepath     [0m | [1m           function           [0m | [1mpassed[0m | [1mSUBTOTAL[0m |
-| ------------------ | ------------------------------ | -----: | -------: |
-[48;2;32;32;32m|[0m[48;2;32;32;32m[92m test\test_train.py [0m[48;2;32;32;32m|[0m[48;2;32;32;32m[92m test_label_distribution        [0m[48;2;32;32;32m|[0m[48;2;32;32;32m[92m      1 [0m[48;2;32;32;32m|[0m[48;2;32;32;32m[92m        1 [0m[48;2;32;32;32m|[0m
-[40m|[0m[40m[92m test\test_train.py [0m[40m|[0m[40m[92m test_preprocessing             [0m[40m|[0m[40m[92m      1 [0m[40m|[0m[40m[92m        1 [0m[40m|[0m
-[48;2;32;32;32m|[0m[48;2;32;32;32m[92m test\test_train.py [0m[48;2;32;32;32m|[0m[48;2;32;32;32m[92m test_data_slice                [0m[48;2;32;32;32m|[0m[48;2;32;32;32m[92m      1 [0m[48;2;32;32;32m|[0m[48;2;32;32;32m[92m        1 [0m[48;2;32;32;32m|[0m
-[40m|[0m[40m[92m test\test_train.py [0m[40m|[0m[40m[92m test_nondeterminism_robustness [0m[40m|[0m[40m[92m      1 [0m[40m|[0m[40m[92m        1 [0m[40m|[0m
-[48;2;32;32;32m|[0m[48;2;32;32;32m[92m test\test_train.py [0m[48;2;32;32;32m|[0m[48;2;32;32;32m[92m test_inference_performance     [0m[48;2;32;32;32m|[0m[48;2;32;32;32m[92m      1 [0m[48;2;32;32;32m|[0m[48;2;32;32;32m[92m        1 [0m[48;2;32;32;32m|[0m
-[40m|[0m[40m[92m test\test_train.py [0m[40m|[0m[40m[92m test_mutamorphic_synonym       [0m[40m|[0m[40m[92m      1 [0m[40m|[0m[40m[92m        1 [0m[40m|[0m
-[48;2;0;0;0m|[0m[48;2;0;0;0m[92m TOTAL              [0m[48;2;0;0;0m|[0m[48;2;0;0;0m[92m                                [0m[48;2;0;0;0m|[0m[48;2;0;0;0m[92m      6 [0m[48;2;0;0;0m|[0m[48;2;0;0;0m[92m        6 [0m[48;2;0;0;0m|[0m
