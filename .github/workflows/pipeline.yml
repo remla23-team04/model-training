@@ -110,21 +110,6 @@ jobs:
         run: |
           pytest --md-report --md-report-verbose=1 --md-report-color never --md-report-output=test-results/test-results.md
 
-      - name: Comment on pull request
-        uses: actions/github-script@v4
-        with:
-          github-token: ${{ secrets.ORG_GH_TOKEN }}
-          script: |
-            const fs = require('fs');
-            const report = fs.readFileSync('test-results/test-results.md', 'utf8');
-            const eventContext = github.context;
-            if (eventContext === undefined) {
-              return;
-            }
-            const pullRequest = eventContext.payload.pull_request;
-            const issueComment = eventContext.issue({ body: report });
-            return github.issues.createComment(issueComment);
-
       ## Report
       - name: Generate coverage report
         run: |
@@ -136,6 +121,17 @@ jobs:
           path: htmlcov
       - name: Coveralls
         uses: coverallsapp/github-action@v2
+
+  #### ADD REPORT TO PR
+  pr_report:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: mshick/add-pr-comment@v2
+        with:
+          message-path: test-results/test-results.md
 
   #### DEPLOY
   deploy:
