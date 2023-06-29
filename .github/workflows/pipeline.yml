@@ -138,9 +138,10 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: md-test-report
+          path: ./md-report.md
       - uses: mshick/add-pr-comment@v2
         with:
-          message-path: ./test-results/test-results.md
+          message-path: ./md-report.md
 
   #### DEPLOY
   deploy:
